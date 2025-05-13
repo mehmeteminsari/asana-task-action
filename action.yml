@@ -1,0 +1,25 @@
+name: 'Asana Task Action'
+description: 'GitHub Action to automate Asana task management based on pull request descriptions.'
+author: 'Your Name'
+inputs:
+  asana-pat:
+    description: 'Personal Access Token for Asana API.'
+    required: true
+  trigger-phrase:
+    description: 'Phrase to trigger the action when found in the pull request description.'
+    required: true
+  task-comment:
+    description: 'The comment to be added to the Asana task.'
+    required: false
+  target-section:
+    description: 'The name of the Asana section where the task should be moved.'
+    required: false
+  mark-complete:
+    description: 'Whether to mark the task as complete after processing.'
+    required: false
+runs:
+  using: 'node20'
+  main: 'dist/index.js'
+branding:
+  icon: 'check-circle'
+  color: 'blue'

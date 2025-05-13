@@ -83,5 +83,5 @@ jobs:
           asana-pat: ${{ secrets.ASANA_PAT }}
           trigger-phrase: 'ASANA TASKS:'
           task-comment: 'Linked PR: '
-          target-section: 'In Progress'
+          target-section: 'In Review'
           mark-complete: true

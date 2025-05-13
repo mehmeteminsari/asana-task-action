@@ -68,14 +68,14 @@ name: Process Asana Tasks
 
 on:
   pull_request:
-    types: [opened, edited, synchronize]
+    types: [opened]
 
 jobs:
   process-asana-tasks:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
       - name: Trigger Asana Task Action
         uses: mehmeteminsari/asana-task-action@v1

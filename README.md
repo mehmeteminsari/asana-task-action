@@ -1,4 +1,4 @@
-# 🔧 Asana Task GitHub Action
+# 🔧 Asana Task Action
 
 This GitHub Action automates Asana task operations based on pull request (PR) descriptions. It is especially useful for keeping your task board in sync with development activities.
 
@@ -43,6 +43,8 @@ When a PR contains a specific trigger phrase, the action will:
 
 ## 🚀 Example Usage
 
+### PR description
+```
 Implements authentication flow and fixes logout bug.
 
 https://app.asana.com/1/123456789/project/123456789/task/123456789 ❌
@@ -53,11 +55,14 @@ ASANA TASKS:
 
 https://app.asana.com/1/123456789/project/123456789/task/123456789 ✔️
 
+https://app.asana.com/1/123456789/project/123456789/task/123456789?focus=true ✔️
+
 Sub Tasks:
 
 - [Auth subtask](https://app.asana.com/1/123456789/project/123456789/task/123456789) ✔️
+```
 
-
+### Workflow
 ```yaml
 name: Process Asana Tasks
 
@@ -73,7 +78,7 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Trigger Asana Task Manager Action
-        uses: mehmeteminsari/asana-task-action@v1
+        uses: your-username/asana-task-manager-action@v1
         with:
           asana-pat: ${{ secrets.ASANA_PAT }}
           trigger-phrase: 'ASANA_TASK'

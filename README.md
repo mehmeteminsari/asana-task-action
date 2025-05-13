@@ -77,11 +77,11 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
 
-      - name: Trigger Asana Task Manager Action
-        uses: your-username/asana-task-manager-action@v1
+      - name: Trigger Asana Task Action
+        uses: mehmeteminsari/asana-task-action@v1
         with:
           asana-pat: ${{ secrets.ASANA_PAT }}
-          trigger-phrase: 'ASANA_TASK'
-          task-comment: 'PR has been created or updated: '
+          trigger-phrase: 'ASANA TASKS:'
+          task-comment: 'Linked PR: '
           target-section: 'In Progress'
           mark-complete: true

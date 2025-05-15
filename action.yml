@@ -1,6 +1,6 @@
 name: 'Asana Task Action'
 description: 'GitHub Action to automate Asana task management based on pull request descriptions.'
-author: 'Your Name'
+author: '@mehmeteminsari'
 inputs:
   asana-pat:
     description: 'Personal Access Token for Asana API.'

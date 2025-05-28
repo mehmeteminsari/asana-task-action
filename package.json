@@ -4,6 +4,7 @@
   "description": "This GitHub Action automates Asana task operations based on pull request (PR) descriptions. It is especially useful for keeping your task board in sync with development activities.",
   "main": "index.js",
   "scripts": {
+    "build": "ncc build index.js -o dist",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],

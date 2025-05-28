@@ -59009,7 +59009,7 @@ const ASANA = {
 
 const run = async () => {
   if (!GITHUB.PR.DESCRIPTION.includes(GITHUB.ACTIONS.INPUTS.TRIGGER_PHRASE)) {
-    core.setFailed('Trigger phrase not matched in PR description')
+    core.info('Trigger phrase not matched in PR description')
 
     return
   }
@@ -59017,7 +59017,7 @@ const run = async () => {
   const tasks = ASANA.extractTasks()
 
   if (tasks.length === 0) {
-    core.setFailed('No tasks found in PR description')
+    core.info('No tasks found in PR description')
 
     return
   }

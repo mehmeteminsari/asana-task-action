@@ -58917,42 +58917,29 @@ const ASANA = {
     )
 
     const linkRegex =
-      /(?:\[(.*?)\]\()?(https:\/\/app\.asana\.com\/(?<urlVersion>\d+)\/(?<workspaceId>\d+)(?:\/project\/(?<projectId>\d+))?(?:\/task\/(?<taskId>\d+))?)(?:\))?/g
+      /https:\/\/app\.asana\.com\/(?<urlVersion>\d+)\/(?<workspaceId>\d+)(?:\/project\/(?<projectId>\d+))?\/task\/(?<taskId>\d+)/g
+
     let match
 
     while ((match = linkRegex.exec(textAfterTrigger)) !== null) {
-      const { urlVersion, projectId, taskId } = match.groups
+      const { taskId } = match.groups
 
-      if (urlVersion !== '1') {
-        core.setFailed('Unsupported Asana URL version')
-
-        return
-      }
-
-      if (!projectId) {
-        core.setFailed('No project ID found in PR description')
-
-        return
-      }
-
-      if (!taskId) {
-        core.setFailed('No task ID found in PR description')
-
-        return
-      }
-
-      matches.push({ projectId, taskId })
+      matches.push({ taskId })
     }
 
     return matches
   },
-  moveTask: async function ({ projectId, taskId }) {
+  moveTask: async function ({ taskId }) {
     this.setToken()
     const sectionService = new Asana.SectionsApi()
     const taskService = new Asana.TasksApi()
 
-    const sections = await sectionService.getSectionsForProject(projectId)
     const task = await taskService.getTask(taskId)
+
+    const projectId = task.data.projects[0].gid
+
+    const sections = await sectionService.getSectionsForProject(projectId)
+
     const isSubTask = !!task.data.parent
 
     if (!isSubTask) {
@@ -59022,13 +59009,13 @@ const run = async () => {
     return
   }
 
-  for (const { projectId, taskId } of tasks) {
+  for (const { taskId } of tasks) {
     if (GITHUB.ACTIONS.INPUTS.TASK_COMMENT) {
       await ASANA.addComment({ taskId })
     }
 
     if (GITHUB.ACTIONS.INPUTS.TARGET_SECTION) {
-      await ASANA.moveTask({ projectId, taskId })
+      await ASANA.moveTask({ taskId })
     }
 
     if (GITHUB.ACTIONS.INPUTS.MARK_COMPLETE) {

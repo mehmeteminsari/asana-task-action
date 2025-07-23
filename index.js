@@ -55,11 +55,17 @@ const ASANA = {
 
     const task = await taskService.getTask(taskId)
 
+    const isSubTask = !!task.data.parent
+
+    if (isSubTask) {
+      core.info(`Task ${taskId} is a subtask, skipping section move`)
+
+      return
+    }
+
     const projectId = task.data.projects[0].gid
 
     const sections = await sectionService.getSectionsForProject(projectId)
-
-    const isSubTask = !!task.data.parent
 
     if (!isSubTask) {
       try {
